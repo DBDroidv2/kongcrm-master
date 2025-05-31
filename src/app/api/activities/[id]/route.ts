@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import connectDB from '@/lib/db';
 import Activity from '@/models/Activity';
 import { validateRequest, activitySchema } from '@/lib/validation';
+import { ActivityDataForDb } from '@/types'; // Import the new interface
 
 interface MongooseError extends Error {
   name: string;
@@ -49,11 +50,17 @@ export async function PUT(
     }
     
     await connectDB();
-    const data = validation.data;
+    const validatedData = validation.data;
+
+    // Prepare activity data, converting dueDate to a Date object if it exists
+    const activityData: ActivityDataForDb = {
+      ...validatedData, // Copy all properties from validatedData
+      dueDate: validatedData.dueDate ? new Date(validatedData.dueDate) : undefined, // Explicitly convert dueDate
+    };
     
     const activity = await Activity.findByIdAndUpdate(
       params.id,
-      { ...data, updatedAt: new Date() },
+      { ...activityData, updatedAt: new Date() }, // Use activityData
       { new: true, runValidators: true }
     ).populate('customer', 'name email company');
 
@@ -65,7 +72,7 @@ export async function PUT(
     }
 
     // If completing an activity, set completedAt
-    if (data.status === 'completed' && !activity.completedAt) {
+    if (activityData.status === 'completed' && !activity.completedAt) { // Use activityData.status
       activity.completedAt = new Date();
       await activity.save();
     }

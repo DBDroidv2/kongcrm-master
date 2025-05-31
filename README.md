@@ -30,6 +30,16 @@ This project uses [NextAuth.js](https://next-auth.js.org/) for authentication. T
 
 For improved performance and faster loading times, all `<img>` tags have been replaced with the optimized `<Image />` component from `next/image`. This ensures automatic image optimization and better Core Web Vitals.
 
+## 90's UI/UX Theme
+
+The application's user interface has been updated with a nostalgic 90's theme, featuring:
+-   **Header:** Redesigned with a dark blue background, neon cyan text, and chunky button styles.
+-   **Global Background:** A subtle grid pattern applied to the entire page background.
+-   **Forms & Modals:** Activity forms and pop-up modals now have prominent borders, inset shadows, and vibrant button designs, reminiscent of classic 90's dialog boxes.
+-   **Tables:** The activity list table features distinct borders, alternating row colors, and bold, neon-colored headers.
+-   **Sidebar:** Styled with a dark blue background, neon text, and button-like navigation links.
+-   **WIP Popup:** The "Work In Progress" popup has been further enhanced with a retro alert box appearance, including glitch effects and an EKG line.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

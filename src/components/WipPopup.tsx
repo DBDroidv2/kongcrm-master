@@ -22,8 +22,10 @@ export default function WipPopup() {
 
 
   return (
+    // Full-screen overlay for the popup
     <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
-      <div className="bg-gray-900 border-2 border-cyan-400 shadow-lg shadow-cyan-500/50 rounded-lg p-6 md:p-8 max-w-md w-full text-gray-100 relative transform transition-all duration-300 ease-out scale-95 opacity-0 animate-fadeInScale">
+      {/* Popup container with 90's window styling */}
+      <div className="bg-gray-800 border-4 border-cyan-500 shadow-2xl shadow-cyan-500/50 rounded-lg p-6 md:p-8 max-w-md w-full text-gray-100 relative transform transition-all duration-300 ease-out scale-95 opacity-0 animate-fadeInScale">
         <style jsx>{`
           @keyframes fadeInScale {
             0% { opacity: 0; transform: scale(0.95); }
@@ -83,7 +85,7 @@ export default function WipPopup() {
         
         <button
           onClick={() => setIsVisible(false)}
-          className="absolute top-2 right-2 text-gray-400 hover:text-cyan-400 transition-colors"
+          className="absolute top-2 right-2 text-gray-400 hover:text-cyan-400 transition-colors border-2 border-gray-600 bg-gray-700 rounded-md p-1 shadow-md active:shadow-inner"
           aria-label="Close popup"
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -116,7 +118,7 @@ export default function WipPopup() {
         <div className="border-t border-cyan-400/50 pt-4 text-center">
           <button
             onClick={() => setIsVisible(false)}
-            className="bg-cyan-500 hover:bg-cyan-400 text-gray-900 font-bold py-2 px-6 rounded-sm uppercase tracking-wider transition-all duration-200 transform hover:scale-105 shadow-md hover:shadow-lg shadow-cyan-500/30"
+            className="bg-cyan-500 hover:bg-cyan-400 text-gray-900 font-bold py-2 px-6 rounded-sm uppercase tracking-wider transition-all duration-200 transform hover:scale-105 shadow-md hover:shadow-lg shadow-cyan-500/30 border-2 border-cyan-700 active:shadow-inner"
           >
             Proceed to App
           </button>

@@ -3,6 +3,7 @@ import connectDB from '@/lib/db';
 import Activity from '@/models/Activity';
 import Customer from '@/models/Customer';
 import { validateRequest, activitySchema } from '@/lib/validation';
+import { ActivityDataForDb } from '@/types'; // Import the new interface
 
 interface ActivityQuery {
   customer?: string;
@@ -63,10 +64,16 @@ export async function POST(request: Request) {
     }
 
     await connectDB();
-    const data = validation.data;
+    const validatedData = validation.data;
+
+    // Prepare activity data, converting dueDate to a Date object if it exists
+    const activityData: ActivityDataForDb = {
+      ...validatedData, // Copy all properties from validatedData
+      dueDate: validatedData.dueDate ? new Date(validatedData.dueDate) : undefined, // Explicitly convert dueDate
+    };
 
     // Verify customer exists
-    const customer = await Customer.findById(data.customer);
+    const customer = await Customer.findById(activityData.customer);
     if (!customer) {
       return NextResponse.json(
         { success: false, error: 'Customer not found' },
@@ -75,12 +82,12 @@ export async function POST(request: Request) {
     }
 
     // Create activity
-    const activity = await Activity.create(data);
+    const activity = await Activity.create(activityData);
     await activity.populate('customer', 'name email company');
 
     // Update customer's lastInteraction
-    if (data.type !== 'status_change') {
-      await Customer.findByIdAndUpdate(data.customer, {
+    if (activityData.type !== 'status_change') { // Use activityData.type
+      await Customer.findByIdAndUpdate(activityData.customer, { // Use activityData.customer
         lastInteraction: new Date(),
       });
     }
