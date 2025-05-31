@@ -1,4 +1,6 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# KongCRM - Customer Relationship Management
+
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app). It serves as a modern CRM system for managing customers and activities.
 
 ## Getting Started
 
@@ -19,6 +21,14 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+## Authentication with NextAuth.js
+
+This project uses [NextAuth.js](https://next-auth.js.org/) for authentication. To ensure proper functionality, the `SessionProvider` is configured to wrap the application's client components. This resolves issues related to `useSession` and React Context availability in Server Components. The `SessionProvider` is now correctly placed within `src/components/AuthSessionProvider.tsx`, which is then used in `src/app/layout.tsx`.
+
+## Image Optimization
+
+For improved performance and faster loading times, all `<img>` tags have been replaced with the optimized `<Image />` component from `next/image`. This ensures automatic image optimization and better Core Web Vitals.
 
 ## Learn More
 
